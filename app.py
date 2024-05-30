@@ -43,7 +43,7 @@ for sender, message in st.session_state['messages']:
     else:
         st.text(f"Bot: {message}")
 
-# Resources to mental health
+# Display resources
 st.sidebar.title("Resources")
 st.sidebar.write("If you need immediate help, please contact one of the following resources:")
 st.sidebar.write("1. National Suicide Prevention Lifeline: 1-800-273-8255")
