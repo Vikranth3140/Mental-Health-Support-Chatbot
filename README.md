@@ -54,7 +54,7 @@ This project is a Mental Health Support Chatbot built using [Streamlit](https://
 
 ## License
 
-This project is licensed under the MIT License.
+This project is licensed under the [MIT License](LICENSE).
 
 ## Acknowledgements
 
