@@ -3,8 +3,9 @@ import openai
 from textblob import TextBlob
 import pandas as pd
 
-# Change it to your open ai api key
+# Change it to your OpenAI API key
 openai.api_key = 'your_openai_api_key'
+
 
 # Function to generate a response from GPT-3
 def generate_response(prompt):
@@ -19,6 +20,7 @@ def generate_response(prompt):
         return response.choices[0].message['content'].strip()
     except openai.error.RateLimitError:
         return "It seems we have reached the API quota limit. Please try again later or check your OpenAI account."
+
 
 # Analyze sentiment
 def analyze_sentiment(text):
@@ -35,6 +37,7 @@ def analyze_sentiment(text):
     else:
         return "Very Negative", polarity
 
+
 # Provide coping strategies
 def provide_coping_strategy(sentiment):
     strategies = {
@@ -45,6 +48,17 @@ def provide_coping_strategy(sentiment):
         "Very Negative": "I'm sorry to hear that you're feeling very negative. Consider talking to a friend or seeking professional help."
     }
     return strategies.get(sentiment, "Keep going, you're doing great!")
+
+
+# Disclaimer regarding data privacy
+def display_disclaimer():
+    st.sidebar.title("Data Privacy Disclaimer")
+    st.sidebar.write(
+        "This application stores your session data, including your messages and sentiment analysis results, in temporary storage during your session. "
+        "This data is not stored permanently and is used solely to improve your interaction with the chatbot. "
+        "Please avoid sharing personal or sensitive information during your conversation."
+    )
+
 
 st.title("Mental Health Support Chatbot")
 
@@ -59,12 +73,12 @@ with st.form(key='chat_form'):
 
 if submit_button and user_message:
     st.session_state['messages'].append(("You", user_message))
-    
+
     sentiment, polarity = analyze_sentiment(user_message)
     coping_strategy = provide_coping_strategy(sentiment)
-    
+
     response = generate_response(user_message)
-    
+
     st.session_state['messages'].append(("Bot", response))
     st.session_state['mood_tracker'].append((user_message, sentiment, polarity))
 
@@ -94,4 +108,7 @@ st.sidebar.write("[More Resources](https://www.mentalhealth.gov/get-help/immedia
 if st.sidebar.button("Show Session Summary"):
     st.sidebar.write("### Session Summary")
     for i, (message, sentiment, polarity) in enumerate(st.session_state['mood_tracker']):
-        st.sidebar.write(f"{i+1}. {message} - Sentiment: {sentiment} (Polarity: {polarity})")
+        st.sidebar.write(f"{i + 1}. {message} - Sentiment: {sentiment} (Polarity: {polarity})")
+
+# Call the disclaimer function to display the privacy notice
+display_disclaimer()
