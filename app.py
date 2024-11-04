@@ -3,7 +3,7 @@ import openai
 from textblob import TextBlob
 import pandas as pd
 
-# Change it to your OpenAI API key
+# Change it to your open ai api key
 openai.api_key = 'your_openai_api_key'
 
 
@@ -52,13 +52,17 @@ def provide_coping_strategy(sentiment):
 
 # Disclaimer regarding data privacy
 def display_disclaimer():
-    st.sidebar.title("Data Privacy Disclaimer")
-    st.sidebar.write(
-        "This application stores your session data, including your messages and sentiment analysis results, in temporary storage during your session. "
-        "This data is not stored permanently and is used solely to improve your interaction with the chatbot. "
-        "Please avoid sharing personal or sensitive information during your conversation."
+    st.sidebar.markdown(
+        "<h2 style='color: #FF5733;'>Data Privacy Disclaimer</h2>",
+        unsafe_allow_html=True
     )
-
+    st.sidebar.markdown(
+        "<span style='color: #FF5733;'>This application stores your session data, including your messages and "
+        "sentiment analysis results, in temporary storage during your session. "
+        "This data is not stored permanently and is used solely to improve your interaction with the chatbot. "
+        "Please avoid sharing personal or sensitive information during your conversation.</span>",
+        unsafe_allow_html=True
+    )
 
 st.title("Mental Health Support Chatbot")
 
@@ -110,5 +114,5 @@ if st.sidebar.button("Show Session Summary"):
     for i, (message, sentiment, polarity) in enumerate(st.session_state['mood_tracker']):
         st.sidebar.write(f"{i + 1}. {message} - Sentiment: {sentiment} (Polarity: {polarity})")
 
-# Call the disclaimer function to display the privacy notice
+
 display_disclaimer()
