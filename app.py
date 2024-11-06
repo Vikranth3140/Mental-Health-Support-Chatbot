@@ -5,7 +5,8 @@ import pandas as pd
 import altair as alt
 
 # Set up OpenAI API securely
-openai.api_key = 'your-openai-api-key'
+openai.api_key = 'your-openai-key'
+
 
 
 # Initialize session state for text size if not already set
