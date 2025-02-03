@@ -10,7 +10,7 @@ openai.api_key = 'your_openai_api_key'
 # Function to generate a response from GPT-3
 def generate_response(prompt):
     try:
-        response = openai.ChatCompletion.create(
+        response = openai.chat.completions.create(
             model="gpt-3.5-turbo",
             messages=[
                 {"role": "system", "content": "You are a helpful assistant."},
@@ -18,7 +18,7 @@ def generate_response(prompt):
             ]
         )
         return response.choices[0].message['content'].strip()
-    except openai.error.RateLimitError:
+    except openai.RateLimitError:
         return "It seems we have reached the API quota limit. Please try again later or check your OpenAI account."
 
 
